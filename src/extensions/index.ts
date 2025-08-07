@@ -1,3 +1,4 @@
+import { TextStyleKit } from "@tiptap/extension-text-style";
 import { StarterKit } from "@tiptap/starter-kit";
 export { EXTENSION_NAME } from "./extensions.config";
 
@@ -6,5 +7,12 @@ export type ExtensionOptions = {
 };
 
 export const buildExtensions = (options?: ExtensionOptions) => {
-  return [StarterKit];
+  return [
+    StarterKit,
+    TextStyleKit.configure({
+      fontSize: {
+        types: ["heading", "paragraph"],
+      },
+    }),
+  ];
 };

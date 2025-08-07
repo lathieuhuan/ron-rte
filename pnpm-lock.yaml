@@ -17,6 +17,12 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.2.7
         version: 1.2.7(@types/react-dom@18.2.0)(@types/react@18.2.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@tiptap/extension-text-style':
+        specifier: 3.0.9
+        version: 3.0.9(@tiptap/core@3.0.9(@tiptap/pm@3.0.9))
+      '@tiptap/extension-underline':
+        specifier: 3.0.9
+        version: 3.0.9(@tiptap/core@3.0.9(@tiptap/pm@3.0.9))
       '@tiptap/pm':
         specifier: 3.0.9
         version: 3.0.9
@@ -26,6 +32,9 @@ importers:
       '@tiptap/starter-kit':
         specifier: 3.0.9
         version: 3.0.9
+      class-variance-authority:
+        specifier: 0.7.1
+        version: 0.7.1
       clsx:
         specifier: 2.1.1
         version: 2.1.1
@@ -973,6 +982,11 @@ packages:
     peerDependencies:
       '@tiptap/core': ^3.0.9
 
+  '@tiptap/extension-text-style@3.0.9':
+    resolution: {integrity: sha512-x7SZLS537c7w789n8re0IktmkBZqz98dux/hwpFAcC4oL06YPjFG7Dy9mAiKcsKqKWI0eAyTQvMybz+TJusBbw==}
+    peerDependencies:
+      '@tiptap/core': ^3.0.9
+
   '@tiptap/extension-text@3.0.9':
     resolution: {integrity: sha512-yWdz4aW1nu5YGcinxfu3FXiwMnP/7jp+s7dFXhq9m/6zhDUD2+qyUwhJfIU4Tcz+BGdVHqoNgOA3QXLMA6jyFA==}
     peerDependencies:
@@ -1153,6 +1167,9 @@ packages:
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
+
+  class-variance-authority@0.7.1:
+    resolution: {integrity: sha512-Ka+9Trutv7G8M6WT6SeiRWz792K5qEqIGEGzXKhAE6xOWAY6pPH8U+9IY3oCMv6kqTmLsv7Xh/2w2RigkePMsg==}
 
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
@@ -2623,6 +2640,10 @@ snapshots:
     dependencies:
       '@tiptap/core': 3.0.9(@tiptap/pm@3.0.9)
 
+  '@tiptap/extension-text-style@3.0.9(@tiptap/core@3.0.9(@tiptap/pm@3.0.9))':
+    dependencies:
+      '@tiptap/core': 3.0.9(@tiptap/pm@3.0.9)
+
   '@tiptap/extension-text@3.0.9(@tiptap/core@3.0.9(@tiptap/pm@3.0.9))':
     dependencies:
       '@tiptap/core': 3.0.9(@tiptap/pm@3.0.9)
@@ -2894,6 +2915,10 @@ snapshots:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+
+  class-variance-authority@0.7.1:
+    dependencies:
+      clsx: 2.1.1
 
   clsx@2.1.1: {}
 

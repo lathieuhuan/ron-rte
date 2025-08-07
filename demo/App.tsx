@@ -3,6 +3,7 @@ import { TextEditor } from "@/TextEditor";
 
 function App() {
   const [content, setContent] = useState("");
+  const [isEditable, setIsEditable] = useState(true);
 
   const handleContentChange = (newContent: string) => {
     setContent(newContent);
@@ -10,9 +11,18 @@ function App() {
 
   return (
     <div className="p-4 max-w-2xl mx-auto space-y-4">
-      <h1 className="text-2xl text-center font-bold">Ron Rich Text Editor</h1>
+      <h1 className="text-2xl text-center font-bold">Rich Text Editor</h1>
 
-      <TextEditor className="h-86" value={content} onChange={handleContentChange} />
+      <div>
+        <button onClick={() => setIsEditable(!isEditable)}>Toggle</button>
+      </div>
+
+      <TextEditor
+        className="h-86"
+        value={content}
+        editable={isEditable}
+        onChange={handleContentChange}
+      />
 
       <div>
         <h3>Current Content (HTML):</h3>
