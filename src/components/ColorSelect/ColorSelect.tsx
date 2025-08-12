@@ -1,5 +1,5 @@
 import { ALargeSmall, Eraser, Palette } from "lucide-react";
-import { useRef, useState, type ChangeEvent, type MouseEvent } from "react";
+import { useRef, useState, type ChangeEvent } from "react";
 
 import { useEditorContext } from "@/hooks/useEditorContext";
 import { cn } from "@/utils/common";
@@ -13,19 +13,19 @@ export const ColorSelect = () => {
   const { editor, editable } = useEditorContext();
 
   const [displayedColor, setDisplayedColor] = useState<{
-    value: string | undefined;
-    isVeryLight: boolean;
+    value: string;
+    isLight: boolean;
   }>({
-    value: "",
-    isVeryLight: false,
+    value: DEFAULT_COLOR,
+    isLight: false,
   });
   const inputRef = useRef<HTMLInputElement>(null);
   const currentColor = editor.getAttributes(EXTENSION_NAME.TextStyle).color;
 
-  const updateDisplayedColor = (color?: string) => {
+  const updateDisplayedColor = (color = DEFAULT_COLOR) => {
     setDisplayedColor({
       value: color,
-      isVeryLight: color ? checkIsVeryLightColor(color) : false,
+      isLight: checkIsVeryLightColor(color),
     });
   };
 
@@ -49,19 +49,18 @@ export const ColorSelect = () => {
     updateDisplayedColor(color);
   };
 
-  const handleClickButton = (e: MouseEvent<HTMLButtonElement>) => {
-    // if (displayedColor.value) {
-    //   // e.stopPropagation();
-    //   handleSelectColor(displayedColor.value);
-    // }
+  const handleClickButton = () => {
+    handleSelectColor(displayedColor.value);
   };
 
   return (
     <div className="relative">
-      <ToolButton.SeparateMenu
+      <ToolButton
         tooltip="Color"
         className="relative"
         disabled={!editable}
+        menuCls="p-0 overflow-hidden"
+        separateMenu
         menu={({ closeMenu }) => (
           <ColorMenu
             currentColor={currentColor}
@@ -85,14 +84,14 @@ export const ColorSelect = () => {
           <ALargeSmall className="size-4" />
           <span
             className={cn("block h-1 w-full rounded-xs", {
-              "border border-gray-300": displayedColor.isVeryLight,
+              "border border-gray-300": displayedColor.isLight,
             })}
             style={{
               backgroundColor: displayedColor.value || DEFAULT_COLOR,
             }}
           />
         </span>
-      </ToolButton.SeparateMenu>
+      </ToolButton>
       <input
         type="color"
         ref={inputRef}
@@ -116,19 +115,22 @@ const ColorMenu = ({
   onClearColor,
   onClickColorPicker,
 }: ColorMenuProps) => {
+  const buttonCls =
+    "w-full px-2.5 py-1.5 font-medium rounded-none flex justify-start items-center gap-2 hover:bg-accent";
+
   return (
     <div>
-      <button
-        type="button"
-        className="px-2.5 py-1.5 font-medium rounded-none flex justify-start gap-2"
-        onClick={onClearColor}
-      >
+      <button type="button" className={buttonCls} onClick={onClearColor}>
         <Eraser className="size-3.5" />
         Remove color
       </button>
 
-      <div className="grid grid-cols-5 items-center justify-center gap-1 p-2">
+      <div className="p-2 grid grid-cols-5 items-center justify-center gap-1 border-t border-b border-border">
         {COLOR_OPTIONS.map((option) => {
+          const selected =
+            option.value === currentColor ||
+            (currentColor === "" && option.value === DEFAULT_COLOR);
+
           return (
             <div
               key={option.value}
@@ -138,9 +140,7 @@ const ColorMenu = ({
               className={cn(
                 "size-6 rounded-xs cursor-pointer hover:scale-110 transition-transform",
                 {
-                  "ring-2 ring-blue-500 ring-offset-1":
-                    option.value === currentColor ||
-                    (currentColor === "" && option.value === DEFAULT_COLOR),
+                  "ring-2 ring-primary ring-offset-1": selected,
                   "border border-gray-300": checkIsVeryLightColor(option.value),
                 },
               )}
@@ -148,12 +148,8 @@ const ColorMenu = ({
           );
         })}
       </div>
-      <div className="h-px bg-gray-200" />
-      <button
-        type="button"
-        className="px-2.5 py-1.5 font-medium rounded-none flex justify-start gap-2"
-        onClick={onClickColorPicker}
-      >
+
+      <button type="button" className={buttonCls} onClick={onClickColorPicker}>
         <Palette className="size-3.5" />
         Color picker
       </button>

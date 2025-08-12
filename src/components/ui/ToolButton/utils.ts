@@ -1,5 +1,3 @@
-import type { SimpleButtonProps } from "./SimpleButton";
-
 const INJECTED_PROPS = [
   "aria-controls",
   "aria-expanded",
@@ -9,9 +7,11 @@ const INJECTED_PROPS = [
   "onClick",
 ];
 
-export const separateProps = (props: Record<string, any>) => {
+// type InjectOmmited<T> = Omit<T, (typeof INJECTED_PROPS)[number]>;
+
+export const separateProps = <T extends Record<string, any>>(props: T) => {
   const injectedProps: Record<string, any> = {};
-  const remainingProps: Record<string, any> = {};
+  const remainingProps = {} as T;
 
   for (const key in props) {
     if (INJECTED_PROPS.includes(key)) {
@@ -20,8 +20,5 @@ export const separateProps = (props: Record<string, any>) => {
       remainingProps[key] = props[key];
     }
   }
-  return { injectedProps, remainingProps } as {
-    injectedProps: Record<string, any>;
-    remainingProps: SimpleButtonProps;
-  };
+  return { injectedProps, remainingProps };
 };

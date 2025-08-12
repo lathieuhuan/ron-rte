@@ -29,14 +29,16 @@ const buttonVariants = cva(
   },
 );
 
-export type SimpleButtonProps = Omit<ComponentProps<"button">, "ref" | "className"> & {
+export type SimpleButtonProps = Omit<ComponentProps<"button">, "ref" | "className" | "onClick"> & {
   className?: ClassValue;
   active?: boolean;
   tooltip?: string;
+  tooltipSide?: "top" | "bottom" | "left" | "right";
+  onClick?: () => void;
 };
 
 export const SimpleButton = forwardRef<HTMLButtonElement, SimpleButtonProps>(
-  ({ className, type = "button", active, disabled, tooltip, ...restProps }, ref) => {
+  ({ className, type = "button", active, disabled, tooltip, tooltipSide, ...restProps }, ref) => {
     const button = (
       <button
         {...restProps}
@@ -50,7 +52,7 @@ export const SimpleButton = forwardRef<HTMLButtonElement, SimpleButtonProps>(
       return (
         <Tooltip>
           <TooltipTrigger asChild>{button}</TooltipTrigger>
-          <TooltipContent>{tooltip}</TooltipContent>
+          <TooltipContent side={tooltipSide}>{tooltip}</TooltipContent>
         </Tooltip>
       );
     }

@@ -1,3 +1,4 @@
+import { TextAlign } from "@tiptap/extension-text-align";
 import { TextStyle } from "@tiptap/extension-text-style";
 
 export const EXTENSION_NAME = Object.freeze({
@@ -6,4 +7,5 @@ export const EXTENSION_NAME = Object.freeze({
   Underline: "underline",
   Strike: "strike",
   TextStyle: TextStyle.name,
+  TextAlign: TextAlign.name,
 });

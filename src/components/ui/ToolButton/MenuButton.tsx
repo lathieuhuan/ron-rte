@@ -2,18 +2,17 @@ import { ChevronDown } from "lucide-react";
 
 import { cn } from "@/utils/common";
 import { useMenu } from "./hooks/useMenu";
-import type { MenuProp } from "./types";
+import type { MenuProps } from "./types";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover";
 import { SimpleButton, type SimpleButtonProps } from "./SimpleButton";
 
-export type MenuButtonProps = SimpleButtonProps & {
-  menu?: MenuProp;
-};
+export type MenuButtonProps = SimpleButtonProps & MenuProps;
 
 export const MenuButton = ({
   className,
   menu: menuProp,
+  menuCls,
   children,
   ...restProps
 }: MenuButtonProps) => {
@@ -31,7 +30,7 @@ export const MenuButton = ({
           <ChevronDown className="size-4" />
         </SimpleButton>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-2 rounded-sm bg-white" align="start">
+      <PopoverContent className={cn("w-auto p-2 rounded-sm bg-white", menuCls)} align="start">
         {menu}
       </PopoverContent>
     </Popover>

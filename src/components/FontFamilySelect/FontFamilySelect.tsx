@@ -42,17 +42,17 @@ function FontFamilyMenu({ closeMenu }: FontFamilyMenuProps) {
   );
 }
 
-type TFontFamilySelectProps = {
+type FontFamilySelectProps = {
   disabled?: boolean;
 };
-export const FontFamilySelect = ({ disabled }: TFontFamilySelectProps) => {
+export const FontFamilySelect = ({ disabled }: FontFamilySelectProps) => {
   return (
-    <ToolButton.Menu
+    <ToolButton
       tooltip="Font Family"
       disabled={disabled}
       menu={({ closeMenu }) => <FontFamilyMenu closeMenu={closeMenu} />}
     >
       <CaseSensitive className="size-5" />
-    </ToolButton.Menu>
+    </ToolButton>
   );
 };

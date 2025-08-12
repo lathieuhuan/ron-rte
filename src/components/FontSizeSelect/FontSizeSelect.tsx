@@ -51,17 +51,17 @@ function FontSizeMenu({ closeMenu }: FontSizeMenuProps) {
   );
 }
 
-type TFontSizeSelectProps = {
+type FontSizeSelectProps = {
   disabled?: boolean;
 };
-export const FontSizeSelect = ({ disabled }: TFontSizeSelectProps) => {
+export const FontSizeSelect = ({ disabled }: FontSizeSelectProps) => {
   return (
-    <ToolButton.Menu
+    <ToolButton
       tooltip="Font Size"
       disabled={disabled}
       menu={({ closeMenu }) => <FontSizeMenu closeMenu={closeMenu} />}
     >
       <ALargeSmall className="size-5" />
-    </ToolButton.Menu>
+    </ToolButton>
   );
 };

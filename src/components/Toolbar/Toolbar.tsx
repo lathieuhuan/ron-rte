@@ -1,13 +1,24 @@
 import { Editor, useEditorState } from "@tiptap/react";
-import { Bold, Italic, Redo2, Strikethrough, Underline, Undo2 } from "lucide-react";
+import {
+  Bold,
+  IndentDecrease,
+  IndentIncrease,
+  Italic,
+  Redo2,
+  Strikethrough,
+  Underline,
+  Undo2,
+} from "lucide-react";
 import { Fragment, type Key, type ReactNode } from "react";
 
 import { EXTENSION_NAME } from "@/extensions";
 import { cn } from "@/utils/common";
+
+import { ColorSelect } from "../ColorSelect";
 import { FontFamilySelect } from "../FontFamilySelect";
 import { FontSizeSelect } from "../FontSizeSelect";
+import { TextAlignSelect } from "../TextAlignSelect";
 import { ToolButton, type ToolButtonProps } from "../ui/ToolButton";
-import { ColorSelect } from "../ColorSelect";
 
 type TTool = (ToolButtonProps | { customElement: ReactNode }) & {
   key: Key;
@@ -45,13 +56,6 @@ export const Toolbar = ({ editor, disabled, className }: TToolbarProps) => {
         // isCode: e.isActive("code") ?? false,
         // canCode: eCan.toggleCode().run() ?? false,
         canClearMarks: eCan.chain().unsetAllMarks().run() ?? false,
-        // isParagraph: e.isActive("paragraph") ?? false,
-        // isHeading1: e.isActive("heading", { level: 1 }) ?? false,
-        // isHeading2: e.isActive("heading", { level: 2 }) ?? false,
-        // isHeading3: e.isActive("heading", { level: 3 }) ?? false,
-        // isHeading4: e.isActive("heading", { level: 4 }) ?? false,
-        // isHeading5: e.isActive("heading", { level: 5 }) ?? false,
-        // isHeading6: e.isActive("heading", { level: 6 }) ?? false,
         isBulletList: e.isActive("bulletList") ?? false,
         isOrderedList: e.isActive("orderedList") ?? false,
         // isCodeBlock: e.isActive("codeBlock") ?? false,
@@ -131,6 +135,27 @@ export const Toolbar = ({ editor, disabled, className }: TToolbarProps) => {
         {
           key: "color",
           customElement: <ColorSelect />,
+        },
+      ],
+    },
+    {
+      name: "text-align-indent",
+      items: [
+        {
+          key: "text-align",
+          customElement: <TextAlignSelect disabled={disabled} />,
+        },
+        {
+          key: "decrease-indent",
+          tooltip: "Decrease Indent",
+          children: <IndentDecrease className="size-5" />,
+          onClick: () => editor.chain().focus().decreaseIndent().run(),
+        },
+        {
+          key: "increase-indent",
+          tooltip: "Increase Indent",
+          children: <IndentIncrease className="size-5" />,
+          onClick: () => editor.chain().focus().increaseIndent().run(),
         },
       ],
     },

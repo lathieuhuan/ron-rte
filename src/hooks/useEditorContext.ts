@@ -10,5 +10,10 @@ export const useEditorContext = () => {
   if (!editor) {
     throw new Error("Editor is not initialized");
   }
-  return { editor, ...rest };
+
+  const focusEditor = () => {
+    document.getElementById(context.id)?.focus();
+  };
+
+  return { editor, focusEditor, ...rest };
 };
