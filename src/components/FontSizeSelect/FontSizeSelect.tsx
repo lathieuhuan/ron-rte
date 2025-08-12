@@ -1,7 +1,7 @@
 import { ALargeSmall } from "lucide-react";
 
 import { useEditorContext } from "@/hooks/useEditorContext";
-import { HEADING_OPTIONS, PARAGRAPH_OPTION, type Level } from "./FontSizeSelect.config";
+import { HEADING_OPTIONS, PARAGRAPH_OPTION, type Level } from "./config";
 
 import { MenuOption } from "../ui/MenuOption";
 import { ToolButton } from "../ui/ToolButton";

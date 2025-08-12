@@ -33,11 +33,8 @@ function TextAlignMenu({ activeAlign, onSelect }: TextAlignMenuProps) {
   );
 }
 
-type TextAlignSelectProps = {
-  disabled?: boolean;
-};
-export const TextAlignSelect = ({ disabled }: TextAlignSelectProps) => {
-  const { editor, focusEditor } = useEditorContext();
+export const TextAlignSelect = () => {
+  const { editor, editable } = useEditorContext();
   const { activeOption } = useEditorState({
     editor,
     selector: (snapshot) => ({
@@ -58,7 +55,6 @@ export const TextAlignSelect = ({ disabled }: TextAlignSelectProps) => {
   const handleSelect = (option: TextAlignOption) => {
     editor.commands.setTextAlign(option.value);
     setDisplayedOption(option);
-    // focusEditor();
   };
 
   const handleClick = () => {
@@ -72,7 +68,7 @@ export const TextAlignSelect = ({ disabled }: TextAlignSelectProps) => {
   return (
     <ToolButton
       tooltip="Text Align"
-      disabled={disabled}
+      disabled={!editable}
       active={displayedIsActive}
       separateMenu
       menu={({ closeMenu }) => (

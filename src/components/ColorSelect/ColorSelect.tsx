@@ -1,11 +1,11 @@
 import { ALargeSmall, Eraser, Palette } from "lucide-react";
 import { useRef, useState, type ChangeEvent } from "react";
 
+import { EXTENSION_NAME } from "@/extensions";
 import { useEditorContext } from "@/hooks/useEditorContext";
 import { cn } from "@/utils/common";
-import { EXTENSION_NAME } from "../../extensions";
-import { COLOR_OPTIONS, DEFAULT_COLOR } from "./ColorSelect.config";
-import { checkIsVeryLightColor } from "./ColorSelect.utils";
+import { COLOR_OPTIONS, DEFAULT_COLOR } from "./config";
+import { checkIsVeryLightColor } from "./utils";
 
 import { ToolButton } from "../ui/ToolButton";
 

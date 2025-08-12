@@ -14,6 +14,7 @@ import { Fragment, type Key, type ReactNode } from "react";
 import { EXTENSION_NAME } from "@/extensions";
 import { cn } from "@/utils/common";
 
+import { BulletListSelect } from "../BulletListSelect";
 import { ColorSelect } from "../ColorSelect";
 import { FontFamilySelect } from "../FontFamilySelect";
 import { FontSizeSelect } from "../FontSizeSelect";
@@ -143,7 +144,7 @@ export const Toolbar = ({ editor, disabled, className }: TToolbarProps) => {
       items: [
         {
           key: "text-align",
-          customElement: <TextAlignSelect disabled={disabled} />,
+          customElement: <TextAlignSelect />,
         },
         {
           key: "decrease-indent",
@@ -156,6 +157,15 @@ export const Toolbar = ({ editor, disabled, className }: TToolbarProps) => {
           tooltip: "Increase Indent",
           children: <IndentIncrease className="size-5" />,
           onClick: () => editor.chain().focus().increaseIndent().run(),
+        },
+      ],
+    },
+    {
+      name: "list",
+      items: [
+        {
+          key: "bullet-list",
+          customElement: <BulletListSelect />,
         },
       ],
     },

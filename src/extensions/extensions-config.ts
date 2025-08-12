@@ -1,3 +1,4 @@
+import { ListItem } from "@tiptap/extension-list/item";
 import { TextAlign } from "@tiptap/extension-text-align";
 import { TextStyle } from "@tiptap/extension-text-style";
 
@@ -8,4 +9,5 @@ export const EXTENSION_NAME = Object.freeze({
   Strike: "strike",
   TextStyle: TextStyle.name,
   TextAlign: TextAlign.name,
+  ListItem: ListItem.name,
 });

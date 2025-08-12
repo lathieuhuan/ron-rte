@@ -1,8 +1,8 @@
 import { CaseSensitive } from "lucide-react";
 
+import { EXTENSION_NAME } from "@/extensions";
 import { useEditorContext } from "@/hooks/useEditorContext";
-import { EXTENSION_NAME } from "../../extensions";
-import { FONT_FAMILY_OPTIONS } from "./FontFamilySelect.config";
+import { FONT_FAMILY_OPTIONS } from "./config";
 
 import { MenuOption } from "../ui/MenuOption";
 import { ToolButton } from "../ui/ToolButton";
