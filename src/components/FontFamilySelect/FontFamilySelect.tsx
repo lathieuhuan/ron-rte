@@ -11,13 +11,12 @@ type FontFamilyMenuProps = {
   closeMenu: () => void;
 };
 function FontFamilyMenu({ closeMenu }: FontFamilyMenuProps) {
-  const { id, editor } = useEditorContext();
+  const { editor, focusEditor } = useEditorContext();
 
   const handleSelectFont = (value: string) => {
     editor?.commands.setFontFamily(value);
     closeMenu();
-    // re-focus the editor
-    document.getElementById(id)?.focus();
+    focusEditor();
   };
 
   return (

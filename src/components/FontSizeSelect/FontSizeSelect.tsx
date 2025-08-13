@@ -10,12 +10,11 @@ type FontSizeMenuProps = {
   closeMenu: () => void;
 };
 function FontSizeMenu({ closeMenu }: FontSizeMenuProps) {
-  const { id, editor } = useEditorContext();
+  const { editor, focusEditor } = useEditorContext();
 
   const afterSelect = () => {
     closeMenu();
-    // re-focus the editor
-    document.getElementById(id)?.focus();
+    focusEditor();
   };
 
   const handleSelectHeading = (level: Level) => {

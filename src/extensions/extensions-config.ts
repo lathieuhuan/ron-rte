@@ -10,4 +10,5 @@ export const EXTENSION_NAME = Object.freeze({
   TextStyle: TextStyle.name,
   TextAlign: TextAlign.name,
   ListItem: ListItem.name,
+  Blockquote: "blockquote",
 });

@@ -4,6 +4,7 @@ import {
   IndentDecrease,
   IndentIncrease,
   Italic,
+  Quote,
   Redo2,
   Strikethrough,
   Underline,
@@ -18,6 +19,7 @@ import { BulletListSelect } from "../BulletListSelect";
 import { ColorSelect } from "../ColorSelect";
 import { FontFamilySelect } from "../FontFamilySelect";
 import { FontSizeSelect } from "../FontSizeSelect";
+import { OrderedListSelect } from "../OrderedListSelect";
 import { TextAlignSelect } from "../TextAlignSelect";
 import { ToolButton, type ToolButtonProps } from "../ui/ToolButton";
 
@@ -60,7 +62,8 @@ export const Toolbar = ({ editor, disabled, className }: TToolbarProps) => {
         isBulletList: e.isActive("bulletList") ?? false,
         isOrderedList: e.isActive("orderedList") ?? false,
         // isCodeBlock: e.isActive("codeBlock") ?? false,
-        isBlockquote: e.isActive("blockquote") ?? false,
+        isBlockquote: e.isActive(EXTENSION_NAME.Blockquote) ?? false,
+        canToggleBlockquote: eCan.chain().toggleBlockquote().run() ?? false,
       };
     },
   });
@@ -161,11 +164,23 @@ export const Toolbar = ({ editor, disabled, className }: TToolbarProps) => {
       ],
     },
     {
-      name: "list",
+      name: "block",
       items: [
         {
           key: "bullet-list",
           customElement: <BulletListSelect />,
+        },
+        {
+          key: "ordered-list",
+          customElement: <OrderedListSelect />,
+        },
+        {
+          key: EXTENSION_NAME.Blockquote,
+          tooltip: "Block quote",
+          children: <Quote className="size-5" />,
+          active: editorState.isBlockquote,
+          disabled: !editorState.canToggleBlockquote,
+          onClick: () => editor.chain().focus().toggleBlockquote().run(),
         },
       ],
     },

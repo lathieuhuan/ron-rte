@@ -1,6 +1,6 @@
 import { Extension } from "@tiptap/core";
 
-import { createBulletListExt } from "./utils/createBulletListExt";
+import { createBulletListExt } from "./utils/create-bullet-list-ext";
 
 export const BulletListExt = Extension.create({
   name: "bulletList",

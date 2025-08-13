@@ -1,27 +1,30 @@
 import { type CommandProps, mergeAttributes, Node, wrappingInputRule } from "@tiptap/core";
-import { bulletListInputRegex, type BulletListOptions } from "@tiptap/extension-list/bullet-list";
+import {
+  orderedListInputRegex,
+  type OrderedListOptions,
+} from "@tiptap/extension-list/ordered-list";
 
-import type { BulletListExtensionName, BulletListStyle, BulletListToggleFnName } from "../types";
 import { EXTENSION_NAME } from "@/extensions/extensions-config";
+import type { OrderedListExtensionName, OrderedListStyle, OrderedListToggleFnName } from "../types";
 
-type TCreateBulletListExtensionOptions = {
-  name: BulletListExtensionName;
-  listType: BulletListStyle;
-  toggleFnName: BulletListToggleFnName;
+type TCreateOrderedListExtensionOptions = {
+  name: OrderedListExtensionName;
+  listType: OrderedListStyle;
+  toggleFnName: OrderedListToggleFnName;
 };
 
-export const createBulletListExt = ({
+export const createOrderedListExt = ({
   name,
   listType,
   toggleFnName,
-}: TCreateBulletListExtensionOptions) => {
-  return Node.create<BulletListOptions>({
+}: TCreateOrderedListExtensionOptions) => {
+  return Node.create<OrderedListOptions>({
     name,
     group: "block list",
 
     addOptions() {
       return {
-        itemTypeName: "listItem",
+        itemTypeName: EXTENSION_NAME.ListItem,
         HTMLAttributes: {
           style: "padding-left: 36px;",
         },
@@ -37,12 +40,11 @@ export const createBulletListExt = ({
     parseHTML() {
       return [
         {
-          tag: "ul",
+          tag: "ol",
           getAttrs: (node) => {
             const style = (node as HTMLElement).getAttribute("style") || "";
-
             if (!style.includes("list-style-type:")) {
-              return listType === "disc" ? {} : false;
+              return listType === "decimal" ? {} : false;
             }
 
             return style.includes(`list-style-type: ${listType}`) ? {} : false;
@@ -57,9 +59,9 @@ export const createBulletListExt = ({
 
       const styleToAdd = hasListStyleType
         ? {}
-        : { style: `list-style-type: ${listType || "disc"};` };
+        : { style: `list-style-type: ${listType || "initial"};` };
 
-      return ["ul", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, styleToAdd), 0];
+      return ["ol", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, styleToAdd), 0];
     },
 
     addCommands() {
@@ -88,14 +90,14 @@ export const createBulletListExt = ({
 
     addInputRules() {
       let inputRule = wrappingInputRule({
-        find: bulletListInputRegex,
+        find: orderedListInputRegex,
         type: this.type,
       });
 
       if (this.options.keepMarks || this.options.keepAttributes) {
         inputRule = wrappingInputRule({
+          find: orderedListInputRegex,
           type: this.type,
-          find: bulletListInputRegex,
           editor: this.editor,
           keepMarks: this.options.keepMarks,
           keepAttributes: this.options.keepAttributes,

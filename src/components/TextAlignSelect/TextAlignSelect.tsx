@@ -12,7 +12,7 @@ type TextAlignMenuProps = {
 };
 function TextAlignMenu({ activeAlign, onSelect }: TextAlignMenuProps) {
   return (
-    <ul className="flex flex-col gap-0.5">
+    <ul className="flex flex-col gap-1">
       {TEXT_ALIGN_OPTIONS.map((option) => {
         const active = activeAlign === option.value;
 

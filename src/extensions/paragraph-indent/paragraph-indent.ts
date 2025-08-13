@@ -2,7 +2,7 @@ import { Extension } from "@tiptap/core";
 
 import { DEFAULT_INDENT_STEP, PARA_INDENT_ATTR_NAME } from "./config";
 import type { ParagraphIndentOptions } from "./types";
-import { buildIndentCommand } from "./utils/buildIndentCommand";
+import { buildIndentCommand } from "./utils/build-indent-command";
 
 declare module "@tiptap/react" {
   // eslint-disable-next-line @typescript-eslint/naming-convention

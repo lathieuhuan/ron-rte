@@ -1,19 +1,19 @@
 import { useEditorState } from "@tiptap/react";
-import { List } from "lucide-react";
+import { ListOrdered } from "lucide-react";
 
 import { useEditorContext } from "@/hooks/useEditorContext";
-import { BULLET_LIST_OPTIONS, type BulletListOption } from "./config";
+import { ORDERED_LIST_OPTIONS, type OrderedListOption } from "./config";
 
 import { ToolButton } from "../ui/ToolButton";
 
-type BulletListMenuProps = {
-  activeStyle?: BulletListOption["value"];
-  onSelect: (option: BulletListOption) => void;
+type OrderedListMenuProps = {
+  activeStyle?: OrderedListOption["value"];
+  onSelect: (option: OrderedListOption) => void;
 };
-function BulletListMenu({ activeStyle, onSelect }: BulletListMenuProps) {
+function OrderedListMenu({ activeStyle, onSelect }: OrderedListMenuProps) {
   return (
-    <ul className="flex gap-1">
-      {BULLET_LIST_OPTIONS.map((option) => {
+    <ul className="grid grid-cols-3 gap-1">
+      {ORDERED_LIST_OPTIONS.map((option) => {
         const active = option.value === activeStyle;
 
         return (
@@ -23,7 +23,7 @@ function BulletListMenu({ activeStyle, onSelect }: BulletListMenuProps) {
             active={active}
             autoFocus={active}
             tooltip={option.label}
-            tooltipSide="bottom"
+            tooltipSide="left"
             onClick={() => onSelect(option)}
           >
             <option.Icon className="size-9" />
@@ -34,31 +34,31 @@ function BulletListMenu({ activeStyle, onSelect }: BulletListMenuProps) {
   );
 }
 
-export const BulletListSelect = () => {
+export const OrderedListSelect = () => {
   const { editor, editable } = useEditorContext();
   const { activeOption } = useEditorState({
     editor,
     selector: (snapshot) => ({
-      activeOption: BULLET_LIST_OPTIONS.find((option) => snapshot.editor.isActive(option.value)),
+      activeOption: ORDERED_LIST_OPTIONS.find((option) => snapshot.editor.isActive(option.value)),
     }),
   });
 
-  const handleSelectOption = (option: BulletListOption) => {
+  const handleSelectOption = (option: OrderedListOption) => {
     editor.chain().focus()[option.toggleFnName]?.().run();
   };
 
   const handleClick = () => {
-    handleSelectOption(activeOption || BULLET_LIST_OPTIONS[0]);
+    handleSelectOption(activeOption || ORDERED_LIST_OPTIONS[0]);
   };
 
   return (
     <ToolButton
-      tooltip="Bullet List"
+      tooltip="Ordered List"
       disabled={!editable}
       active={!!activeOption}
       separateMenu
       menu={({ closeMenu }) => (
-        <BulletListMenu
+        <OrderedListMenu
           activeStyle={activeOption?.value}
           onSelect={(option) => {
             handleSelectOption(option);
@@ -68,7 +68,7 @@ export const BulletListSelect = () => {
       )}
       onClick={handleClick}
     >
-      <List className="size-5" />
+      <ListOrdered className="size-5" />
     </ToolButton>
   );
 };
