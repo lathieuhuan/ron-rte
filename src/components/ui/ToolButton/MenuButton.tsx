@@ -7,12 +7,16 @@ import type { MenuProps } from "./types";
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover";
 import { SimpleButton, type SimpleButtonProps } from "./SimpleButton";
 
-export type MenuButtonProps = SimpleButtonProps & MenuProps;
+export type MenuButtonProps = SimpleButtonProps &
+  MenuProps & {
+    withArrow?: boolean;
+  };
 
 export const MenuButton = ({
   className,
   menu: menuProp,
   menuCls,
+  withArrow,
   children,
   ...restProps
 }: MenuButtonProps) => {
@@ -27,7 +31,7 @@ export const MenuButton = ({
       <PopoverTrigger asChild>
         <SimpleButton {...restProps} className={cn("px-1", className)}>
           {children}
-          <ChevronDown className="size-4" />
+          {withArrow && <ChevronDown className="size-4" />}
         </SimpleButton>
       </PopoverTrigger>
       <PopoverContent className={cn("w-auto p-2 rounded-sm bg-white", menuCls)} align="start">

@@ -3,7 +3,7 @@ import { TextStyleKit } from "@tiptap/extension-text-style";
 import { StarterKit } from "@tiptap/starter-kit";
 
 import { BulletListExt } from "./bullet-list";
-import { EXTENSION_NAME } from "./extensions-config";
+import { STARTER_KIT_CONFIG, TEXT_ALIGN_CONFIG, TEXT_STYLE_KIT_CONFIG } from "./extensions-config";
 import { OrderedListExt } from "./ordered-list";
 import { ParagraphIndentExt } from "./paragraph-indent";
 
@@ -15,29 +15,9 @@ export type ExtensionOptions = {
 
 export const buildExtensions = (options?: ExtensionOptions) => {
   return [
-    StarterKit.configure({
-      bulletList: false,
-      orderedList: false,
-      blockquote: {
-        HTMLAttributes: {
-          style: "padding-left: 24px; border-left: 3px solid #e0e0e0;",
-        },
-      },
-    }),
-    TextStyleKit.configure({
-      fontSize: {
-        types: ["heading", "paragraph"],
-      },
-      color: {
-        types: [EXTENSION_NAME.TextStyle, "listItem"],
-      },
-      fontFamily: {
-        types: [EXTENSION_NAME.TextStyle],
-      },
-    }),
-    TextAlign.configure({
-      types: ["heading", "paragraph"],
-    }),
+    StarterKit.configure(STARTER_KIT_CONFIG),
+    TextStyleKit.configure(TEXT_STYLE_KIT_CONFIG),
+    TextAlign.configure(TEXT_ALIGN_CONFIG),
     ParagraphIndentExt,
     BulletListExt,
     OrderedListExt,

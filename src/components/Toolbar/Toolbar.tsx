@@ -22,6 +22,7 @@ import { FontSizeSelect } from "../FontSizeSelect";
 import { OrderedListSelect } from "../OrderedListSelect";
 import { TextAlignSelect } from "../TextAlignSelect";
 import { ToolButton, type ToolButtonProps } from "../ui/ToolButton";
+import { LinkToggle } from "../LinkToggle";
 
 type TTool = (ToolButtonProps | { customElement: ReactNode }) & {
   key: Key;
@@ -181,6 +182,15 @@ export const Toolbar = ({ editor, disabled, className }: TToolbarProps) => {
           active: editorState.isBlockquote,
           disabled: !editorState.canToggleBlockquote,
           onClick: () => editor.chain().focus().toggleBlockquote().run(),
+        },
+      ],
+    },
+    {
+      name: "advanced",
+      items: [
+        {
+          key: "link",
+          customElement: <LinkToggle />,
         },
       ],
     },

@@ -9,7 +9,6 @@ const buttonVariants = cva(
     variants: {
       active: {
         true: "text-primary bg-primary/10 hover:bg-primary/20",
-        false: "hover:bg-accent focus:ring-2 focus:ring-foreground/20 focus:border-foreground/40",
       },
       disabled: {
         true: "opacity-50 cursor-not-allowed",
@@ -20,6 +19,12 @@ const buttonVariants = cva(
         active: true,
         disabled: false,
         className: "hover:bg-primary/20 focus:ring-2 focus:ring-primary/20 focus:border-primary/80",
+      },
+      {
+        active: false,
+        disabled: false,
+        className:
+          "hover:bg-accent focus:ring-2 focus:ring-foreground/20 focus:border-foreground/40",
       },
     ],
     defaultVariants: {

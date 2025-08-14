@@ -13,7 +13,7 @@ type OrderedListMenuProps = {
 function OrderedListMenu({ activeStyle, onSelect }: OrderedListMenuProps) {
   return (
     <ul className="grid grid-cols-3 gap-1">
-      {ORDERED_LIST_OPTIONS.map((option) => {
+      {ORDERED_LIST_OPTIONS.map((option, index) => {
         const active = option.value === activeStyle;
 
         return (
@@ -23,7 +23,7 @@ function OrderedListMenu({ activeStyle, onSelect }: OrderedListMenuProps) {
             active={active}
             autoFocus={active}
             tooltip={option.label}
-            tooltipSide="left"
+            tooltipSide={index > 2 ? "bottom" : "top"}
             onClick={() => onSelect(option)}
           >
             <option.Icon className="size-9" />
