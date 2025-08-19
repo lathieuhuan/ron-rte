@@ -19,10 +19,11 @@ import { BulletListSelect } from "../BulletListSelect";
 import { ColorSelect } from "../ColorSelect";
 import { FontFamilySelect } from "../FontFamilySelect";
 import { FontSizeSelect } from "../FontSizeSelect";
+import { LinkToggle } from "../LinkToggle";
 import { OrderedListSelect } from "../OrderedListSelect";
+import { TableInsertButton } from "../TableInsertButton";
 import { TextAlignSelect } from "../TextAlignSelect";
 import { ToolButton, type ToolButtonProps } from "../ui/ToolButton";
-import { LinkToggle } from "../LinkToggle";
 
 type TTool = (ToolButtonProps | { customElement: ReactNode }) & {
   key: Key;
@@ -60,8 +61,8 @@ export const Toolbar = ({ editor, disabled, className }: TToolbarProps) => {
         // isCode: e.isActive("code") ?? false,
         // canCode: eCan.toggleCode().run() ?? false,
         canClearMarks: eCan.chain().unsetAllMarks().run() ?? false,
-        isBulletList: e.isActive("bulletList") ?? false,
-        isOrderedList: e.isActive("orderedList") ?? false,
+        isBulletList: e.isActive(EXTENSION_NAME.BulletList) ?? false,
+        isOrderedList: e.isActive(EXTENSION_NAME.OrderedList) ?? false,
         // isCodeBlock: e.isActive("codeBlock") ?? false,
         isBlockquote: e.isActive(EXTENSION_NAME.Blockquote) ?? false,
         canToggleBlockquote: eCan.chain().toggleBlockquote().run() ?? false,
@@ -192,36 +193,42 @@ export const Toolbar = ({ editor, disabled, className }: TToolbarProps) => {
           key: "link",
           customElement: <LinkToggle />,
         },
+        {
+          key: "table",
+          customElement: <TableInsertButton />,
+        },
       ],
     },
   ];
 
   return (
-    <div
-      className={cn("flex flex-wrap gap-1 p-1 bg-background", className)}
-      role="toolbar"
-      aria-label="Text EditorToolbar"
-    >
-      {TOOL_GROUPS.map((group, groupIndex) => {
-        return (
-          <div key={group.name} className="flex gap-1">
-            <div hidden={!groupIndex} className="inline-block h-7.5 w-0.25 bg-border" />
-            {group.items.map((item) => {
-              return "customElement" in item ? (
-                <Fragment key={item.key}>{item.customElement}</Fragment>
-              ) : (
-                <ToolButton
-                  {...item}
-                  key={item.key}
-                  disabled={disabled || item.disabled}
-                  aria-label={item.tooltip}
-                  role="button"
-                />
-              );
-            })}
-          </div>
-        );
-      })}
+    <div>
+      <div
+        className={cn("flex flex-wrap gap-1.5 p-2 bg-background", className)}
+        role="toolbar"
+        aria-label="Text EditorToolbar"
+      >
+        {TOOL_GROUPS.map((group, groupIndex) => {
+          return (
+            <div key={group.name} className="flex gap-1.5">
+              <div hidden={!groupIndex} className="inline-block h-7.5 w-0.25 bg-border" />
+              {group.items.map((item) => {
+                return "customElement" in item ? (
+                  <Fragment key={item.key}>{item.customElement}</Fragment>
+                ) : (
+                  <ToolButton
+                    {...item}
+                    key={item.key}
+                    disabled={disabled || item.disabled}
+                    aria-label={item.tooltip}
+                    role="button"
+                  />
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

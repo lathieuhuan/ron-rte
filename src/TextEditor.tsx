@@ -13,6 +13,7 @@ import { getHTML } from "./utils/getHTML";
 import { prepareInputHTML } from "./utils/prepareInputHTML";
 
 import { EditorContextProvider } from "./components/EditorContextProvider";
+import { TableBubleMenu } from "./components/TableBubleMenu";
 import { Toolbar } from "./components/Toolbar";
 
 import "./index.css";
@@ -100,7 +101,7 @@ export const TextEditor = ({
           />
         )}
         <EditorContent editor={editor} />
-        {/* <TableBubbleMenu editor={editor} disabled={!isEditable} /> */}
+        <TableBubleMenu />
       </EditorContextProvider>
     </div>
   );

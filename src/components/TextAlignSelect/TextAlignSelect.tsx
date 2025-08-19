@@ -53,15 +53,15 @@ export const TextAlignSelect = () => {
   }, [activeOption?.value]);
 
   const handleSelect = (option: TextAlignOption) => {
-    editor.commands.setTextAlign(option.value);
+    editor.chain().focus().setTextAlign(option.value).run();
     setDisplayedOption(option);
   };
 
   const handleClick = () => {
     if (displayedIsActive) {
-      editor.commands.unsetTextAlign();
+      editor.chain().focus().unsetTextAlign().run();
     } else {
-      editor.commands.setTextAlign(displayedOption.value);
+      editor.chain().focus().setTextAlign(displayedOption.value).run();
     }
   };
 

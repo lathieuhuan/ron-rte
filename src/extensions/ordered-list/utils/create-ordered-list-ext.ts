@@ -1,10 +1,11 @@
 import { type CommandProps, mergeAttributes, Node, wrappingInputRule } from "@tiptap/core";
+import { ListItem } from "@tiptap/extension-list/item";
 import {
   orderedListInputRegex,
   type OrderedListOptions,
 } from "@tiptap/extension-list/ordered-list";
+import { TextStyle } from "@tiptap/extension-text-style";
 
-import { EXTENSION_NAME } from "@/extensions/extensions-config";
 import type { OrderedListExtensionName, OrderedListStyle, OrderedListToggleFnName } from "../types";
 
 type TCreateOrderedListExtensionOptions = {
@@ -13,18 +14,22 @@ type TCreateOrderedListExtensionOptions = {
   toggleFnName: OrderedListToggleFnName;
 };
 
+type OrderedListExtOptions = OrderedListOptions & {
+  itemTypeName: string;
+};
+
 export const createOrderedListExt = ({
   name,
   listType,
   toggleFnName,
 }: TCreateOrderedListExtensionOptions) => {
-  return Node.create<OrderedListOptions>({
+  return Node.create<OrderedListExtOptions>({
     name,
     group: "block list",
 
     addOptions() {
       return {
-        itemTypeName: EXTENSION_NAME.ListItem,
+        itemTypeName: ListItem.name,
         HTMLAttributes: {
           style: "padding-left: 36px;",
         },
@@ -69,21 +74,16 @@ export const createOrderedListExt = ({
         [toggleFnName]:
           () =>
           ({ commands, chain }: CommandProps) => {
+            const { itemTypeName } = this.options;
+
             if (this.options.keepAttributes) {
               return chain()
-                .toggleList(this.name, this.options.itemTypeName, this.options.keepMarks)
-                .updateAttributes(
-                  EXTENSION_NAME.ListItem,
-                  this.editor.getAttributes(EXTENSION_NAME.TextStyle),
-                )
+                .toggleList(this.name, itemTypeName, this.options.keepMarks)
+                .updateAttributes(itemTypeName, this.editor.getAttributes(TextStyle.name))
                 .run();
             }
 
-            return commands.toggleList(
-              this.name,
-              this.options.itemTypeName,
-              this.options.keepMarks,
-            );
+            return commands.toggleList(this.name, itemTypeName, this.options.keepMarks);
           },
       };
     },
@@ -101,7 +101,7 @@ export const createOrderedListExt = ({
           editor: this.editor,
           keepMarks: this.options.keepMarks,
           keepAttributes: this.options.keepAttributes,
-          getAttributes: () => this.editor.getAttributes(EXTENSION_NAME.TextStyle),
+          getAttributes: () => this.editor.getAttributes(TextStyle.name),
         });
       }
 

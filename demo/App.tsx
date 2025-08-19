@@ -10,7 +10,7 @@ function App() {
   };
 
   return (
-    <div className="p-4 max-w-2xl mx-auto space-y-4">
+    <div className="p-4 container max-w-5xl mx-auto space-y-4">
       <h1 className="text-2xl text-center font-bold">Rich Text Editor</h1>
 
       <div>

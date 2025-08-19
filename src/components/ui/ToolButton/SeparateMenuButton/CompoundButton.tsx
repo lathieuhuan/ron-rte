@@ -17,7 +17,12 @@ export const CompoundButton = forwardRef<HTMLDivElement, CompoundButtonProps>((p
   return (
     <div className="flex" ref={ref}>
       <SimpleButton {...remainingProps} onClick={onClickMainButton} />
-      <button type="button" className="hover:bg-accent rounded-xs" {...injectedProps}>
+      <button
+        type="button"
+        className="hover:not-disabled:bg-accent rounded-xs"
+        disabled={props.disabled}
+        {...injectedProps}
+      >
         <ChevronDown className="size-4" />
       </button>
     </div>

@@ -29,7 +29,7 @@ export const MenuButton = ({
   return (
     <Popover open={openMenu} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
-        <SimpleButton {...restProps} className={cn("px-1", className)}>
+        <SimpleButton {...restProps} className={withArrow ? cn("px-1", className) : className}>
           {children}
           {withArrow && <ChevronDown className="size-4" />}
         </SimpleButton>

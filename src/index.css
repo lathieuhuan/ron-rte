@@ -123,3 +123,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .selectedCell {
+    @apply bg-primary/10;
+  }
+  .column-resize-handle {
+    @apply absolute -right-0.5 top-0 bottom-0 w-1 bg-primary/50 cursor-col-resize;
+  }
+}

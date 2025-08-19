@@ -6,7 +6,7 @@ import { BulletListExt } from "./bullet-list";
 import { STARTER_KIT_CONFIG, TEXT_ALIGN_CONFIG, TEXT_STYLE_KIT_CONFIG } from "./extensions-config";
 import { OrderedListExt } from "./ordered-list";
 import { ParagraphIndentExt } from "./paragraph-indent";
-
+import { TableExtension } from "./table";
 export { EXTENSION_NAME } from "./extensions-config";
 
 export type ExtensionOptions = {
@@ -21,5 +21,6 @@ export const buildExtensions = (options?: ExtensionOptions) => {
     ParagraphIndentExt,
     BulletListExt,
     OrderedListExt,
+    TableExtension,
   ];
 };

@@ -10,21 +10,16 @@ type FontSizeMenuProps = {
   closeMenu: () => void;
 };
 function FontSizeMenu({ closeMenu }: FontSizeMenuProps) {
-  const { editor, focusEditor } = useEditorContext();
-
-  const afterSelect = () => {
-    closeMenu();
-    focusEditor();
-  };
+  const { editor } = useEditorContext();
 
   const handleSelectHeading = (level: Level) => {
-    editor.commands.toggleHeading({ level });
-    afterSelect();
+    editor.chain().focus().toggleHeading({ level }).run();
+    closeMenu();
   };
 
   const handleSelectParagraph = () => {
-    editor.commands.setParagraph();
-    afterSelect();
+    editor.chain().focus().setParagraph().run();
+    closeMenu();
   };
 
   return (

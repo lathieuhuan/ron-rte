@@ -1,7 +1,8 @@
 import { type CommandProps, mergeAttributes, Node, wrappingInputRule } from "@tiptap/core";
 import { bulletListInputRegex, type BulletListOptions } from "@tiptap/extension-list/bullet-list";
+import { ListItem } from "@tiptap/extension-list/item";
+import { TextStyle } from "@tiptap/extension-text-style";
 
-import { EXTENSION_NAME } from "@/extensions/extensions-config";
 import type { BulletListExtensionName, BulletListStyle, BulletListToggleFnName } from "../types";
 
 type TCreateBulletListExtensionOptions = {
@@ -10,18 +11,22 @@ type TCreateBulletListExtensionOptions = {
   toggleFnName: BulletListToggleFnName;
 };
 
+type BulletListExtOptions = BulletListOptions & {
+  itemTypeName: string;
+};
+
 export const createBulletListExt = ({
   name,
   listType,
   toggleFnName,
 }: TCreateBulletListExtensionOptions) => {
-  return Node.create<BulletListOptions>({
+  return Node.create<BulletListExtOptions>({
     name,
     group: "block list",
 
     addOptions() {
       return {
-        itemTypeName: EXTENSION_NAME.ListItem,
+        itemTypeName: ListItem.name,
         HTMLAttributes: {
           style: "padding-left: 36px;",
         },
@@ -67,21 +72,16 @@ export const createBulletListExt = ({
         [toggleFnName]:
           () =>
           ({ commands, chain }: CommandProps) => {
+            const { itemTypeName } = this.options;
+
             if (this.options.keepAttributes) {
               return chain()
-                .toggleList(this.name, this.options.itemTypeName, this.options.keepMarks)
-                .updateAttributes(
-                  EXTENSION_NAME.ListItem,
-                  this.editor.getAttributes(EXTENSION_NAME.TextStyle),
-                )
+                .toggleList(this.name, itemTypeName, this.options.keepMarks)
+                .updateAttributes(itemTypeName, this.editor.getAttributes(TextStyle.name))
                 .run();
             }
 
-            return commands.toggleList(
-              this.name,
-              this.options.itemTypeName,
-              this.options.keepMarks,
-            );
+            return commands.toggleList(this.name, itemTypeName, this.options.keepMarks);
           },
       };
     },
@@ -99,7 +99,7 @@ export const createBulletListExt = ({
           editor: this.editor,
           keepMarks: this.options.keepMarks,
           keepAttributes: this.options.keepAttributes,
-          getAttributes: () => this.editor.getAttributes(EXTENSION_NAME.TextStyle),
+          getAttributes: () => this.editor.getAttributes(TextStyle.name),
         });
       }
 

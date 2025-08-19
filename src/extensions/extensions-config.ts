@@ -3,6 +3,9 @@ import { TextAlign, type TextAlignOptions } from "@tiptap/extension-text-align";
 import { TextStyle, type TextStyleKitOptions } from "@tiptap/extension-text-style";
 import type { StarterKitOptions } from "@tiptap/starter-kit";
 
+import { BulletListExt } from "./bullet-list";
+import { OrderedListExt } from "./ordered-list";
+
 export const EXTENSION_NAME = Object.freeze({
   Italic: "italic",
   Bold: "bold",
@@ -11,7 +14,10 @@ export const EXTENSION_NAME = Object.freeze({
   TextStyle: TextStyle.name,
   TextAlign: TextAlign.name,
   ListItem: ListItem.name,
+  BulletList: BulletListExt.name,
+  OrderedList: OrderedListExt.name,
   Blockquote: "blockquote",
+  Table: "table",
 });
 
 export const STARTER_KIT_CONFIG = {

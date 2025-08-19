@@ -49,6 +49,7 @@ export const SimpleButton = forwardRef<HTMLButtonElement, SimpleButtonProps>(
         {...restProps}
         ref={ref}
         type={type}
+        disabled={disabled}
         className={buttonVariants({ active, disabled, className })}
       />
     );

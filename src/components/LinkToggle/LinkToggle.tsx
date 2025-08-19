@@ -8,14 +8,14 @@ import { LinkPopover } from "./LinkPopover";
 import { LinkAttachView } from "../ui/LinkAttachView";
 
 type PopoverState = {
-  status: "create" | "view" | "closed";
+  status: "form" | "view" | "closed";
   x: number;
   y: number;
   href: string;
 };
 
 export const LinkToggle = () => {
-  const { editor } = useEditorContext();
+  const { editor, editable } = useEditorContext();
   const [popover, setPopover] = useState<PopoverState>({
     status: "closed",
     x: 0,
@@ -36,7 +36,7 @@ export const LinkToggle = () => {
     const attrs = editor.getAttributes("link");
 
     updatePopover({
-      status: "create",
+      status: "form",
       x: coords.left,
       y: coords.bottom,
       href: attrs.href,
@@ -55,12 +55,12 @@ export const LinkToggle = () => {
 
   const handleClose = () => {
     updatePopover({
-      status: popover.status === "create" ? "view" : "closed",
+      status: popover.status === "form" && popover.href ? "view" : "closed",
     });
   };
 
   const handleClickEdit = () => {
-    updatePopover({ status: "create" });
+    updatePopover({ status: "form" });
   };
 
   useEffect(() => {
@@ -96,13 +96,13 @@ export const LinkToggle = () => {
 
   return (
     <>
-      <ToolButton tooltip="Add Link" onClick={openPopover}>
+      <ToolButton onClick={openPopover} disabled={!editable}>
         <Link className="size-5" />
       </ToolButton>
 
       {popover.status !== "closed" && (
         <LinkPopover x={popover.x} y={popover.y}>
-          {popover.status === "create" ? (
+          {popover.status === "form" ? (
             <LinkAttachForm
               initialHref={popover.href}
               onSubmit={handleSaveLink}
